@@ -82,7 +82,7 @@ function FileUpload() {
         </div>
       )}
 
-      {isUploaded && <DataTable data={data} headers={headers} handleFileChange={handleFileChange} handleButtonClick={handleButtonClick}/>}
+      {isUploaded && <DataTable data={data} headers={headers} handleFileChange={handleFileChange} handleButtonClick={handleButtonClick} fileInputRef={fileInputRef}/>}
     </div>
   );
 }

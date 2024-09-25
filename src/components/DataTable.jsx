@@ -6,11 +6,10 @@ import Pagination from "./Pagination";
 import axios from "axios";
 import whatsappIcon from "../assets/whatsappIcon.png";
 
-function DataTable({ data, handleButtonClick, handleFileChange }) {
+function DataTable({ data, handleButtonClick, handleFileChange, fileInputRef  }) {
   const [currentPage, setCurrentPage] = useState(0);
   const [filter, setFilter] = useState("");
   const rowsPerPage = 10;
-  const fileInputRef = useRef(null);
   
   function handleWhatsappCall(phoneNumber) {
     const whatsappUrl = `https://wa.me/${phoneNumber}`;
@@ -58,6 +57,12 @@ function DataTable({ data, handleButtonClick, handleFileChange }) {
     setCurrentPage(0);
   }, [filter]);
 
+  const handleUploadClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
   return (
     <div className="table-container">
     <div style={{display:'flex', justifyContent:'start', gap:'80px', alignItems:'center'}}>
@@ -78,7 +83,7 @@ function DataTable({ data, handleButtonClick, handleFileChange }) {
                 accept=".xlsx"
                 id="fileID"
               />
-              <button onClick={handleButtonClick} style={{height:'40px', borderRadius:'5px'}} className="btn-uploadNew">
+              <button onClick={handleUploadClick} style={{height:'40px', borderRadius:'5px'}} className="btn-uploadNew">
                 Upload New
               </button>
     </div>
