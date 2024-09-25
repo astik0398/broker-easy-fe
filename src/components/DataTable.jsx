@@ -60,7 +60,6 @@ function DataTable({ data, handleButtonClick, handleFileChange }) {
 
   return (
     <div className="table-container">
-      {/* <h1>Excel Data</h1> */}
     <div style={{display:'flex', justifyContent:'start', gap:'80px', alignItems:'center'}}>
           <input
         type="text"
@@ -79,8 +78,8 @@ function DataTable({ data, handleButtonClick, handleFileChange }) {
                 accept=".xlsx"
                 id="fileID"
               />
-              <button onClick={handleButtonClick} style={{height:'40px', borderRadius:'5px'}} class="btn">
-                Upload Another
+              <button onClick={handleButtonClick} style={{height:'40px', borderRadius:'5px'}} className="btn-uploadNew">
+                Upload New
               </button>
     </div>
 
@@ -138,6 +137,7 @@ function DataTable({ data, handleButtonClick, handleFileChange }) {
         totalPages={totalPages}
         handlePrevPage={handlePrevPage}
         currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
     </div>
   );

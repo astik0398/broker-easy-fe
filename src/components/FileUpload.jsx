@@ -25,22 +25,21 @@ function FileUpload() {
       const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
       if (jsonData.length > 0) {
-        setHeaders(jsonData[0]); // Set headers from the first row
+        setHeaders(jsonData[0]);
         const jsonObjects = jsonData.slice(1).map((row) => {
           return row.reduce((acc, cell, index) => {
-            const key = jsonData[0][index].trim(); // Trim spaces from keys
-            acc[key] = cell; // Create an object for each row
+            const key = jsonData[0][index].trim();
+            acc[key] = cell;
             return acc;
           }, {})
         })
         .filter(row => {
-            // Check if any value in the row is not empty
             const hasValues = Object.values(row).some(value => value !== undefined && value !== null && value !== "");
             const hasRequiredKeys = REQUIRED_KEYS.every(key => key in row);
             return hasValues && hasRequiredKeys;
           });
-        setData(jsonObjects); // Set data as array of objects
-        setIsUploaded(true); // Log the new format
+        setData(jsonObjects);
+        setIsUploaded(true);
       }
     };
 
