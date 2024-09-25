@@ -24,6 +24,8 @@ function DataTable({
   console.log("data inside table com", data);
 
   function handleWhatsappCall(phoneNumber) {
+    console.log(phoneNumber);
+    
     const whatsappUrl = `https://wa.me/${phoneNumber}`;
     window.open(whatsappUrl, "_blank");
   }
@@ -78,7 +80,7 @@ function DataTable({
   return (
     <div className="table-container">
       {isMobile ? (
-          <SingleDataCard data={data} />
+          <SingleDataCard data={data} handleWhatsappCall={handleWhatsappCall} handlePhoneCall={handlePhoneCall} handleTwilioCall={handleTwilioCall}/>
       ) : (
         <>
           <div
