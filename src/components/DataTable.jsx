@@ -5,12 +5,24 @@ import mobileIcon from "../assets/mobileIcon.svg";
 import Pagination from "./Pagination";
 import axios from "axios";
 import whatsappIcon from "../assets/whatsappIcon.png";
+import SingleDataCard from "./SingleDataCard";
 
-function DataTable({ data, handleButtonClick, handleFileChange, fileInputRef  }) {
+function DataTable({
+  data,
+  handleButtonClick,
+  handleFileChange,
+  fileInputRef,
+}) {
+  const isMobile = window.innerWidth <= 768;
+
+  // console.log(isMobile);
+
   const [currentPage, setCurrentPage] = useState(0);
   const [filter, setFilter] = useState("");
   const rowsPerPage = 10;
-  
+
+  console.log("data inside table com", data);
+
   function handleWhatsappCall(phoneNumber) {
     const whatsappUrl = `https://wa.me/${phoneNumber}`;
     window.open(whatsappUrl, "_blank");
@@ -65,85 +77,102 @@ function DataTable({ data, handleButtonClick, handleFileChange, fileInputRef  })
 
   return (
     <div className="table-container">
-    <div style={{display:'flex', justifyContent:'start', gap:'80px', alignItems:'center'}}>
-          <input
-        type="text"
-        placeholder="Filter by address"
-        value={filter}
-        onChange={(e) => setFilter(e.target.value)}
-        className="filter-input"
-      />
+      {isMobile ? (
+          <SingleDataCard data={data} />
+      ) : (
+        <>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "start",
+              gap: "80px",
+              alignItems: "center",
+            }}
+          >
+            <input
+              type="text"
+              placeholder="Filter by address"
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+              className="filter-input"
+            />
 
-<input
-                ref={fileInputRef}
-                onChange={handleFileChange}
-                type="file"
-                hidden
-                style={{ display: "none" }}
-                accept=".xlsx"
-                id="fileID"
-              />
-              <button onClick={handleUploadClick} style={{height:'40px', borderRadius:'5px'}} className="btn-uploadNew">
-                Upload New
-              </button>
-    </div>
+            <input
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              type="file"
+              hidden
+              style={{ display: "none" }}
+              accept=".xlsx"
+              id="fileID"
+            />
+            <button
+              onClick={handleUploadClick}
+              style={{ height: "40px", borderRadius: "5px" }}
+              className="btn-uploadNew"
+            >
+              Upload New
+            </button>
+          </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Number</th>
-            <th>Call</th>
-            <th>Whatsapp</th>
-            <th>Twilio</th>
-          </tr>
-        </thead>
-        <tbody>
-          {displayData?.map((item, index) => (
-            <tr key={index}>
-              <td>{item["Name"]}</td>
-              <td>{item["Address"]}</td>
-              <td>{item["Phone Number"]}</td>
-              <td>
-                <img
-                  onClick={() => handlePhoneCall(item["Phone Number"])}
-                  className="icons"
-                  width={"20px"}
-                  src={phoneIcon}
-                  alt={item["Name"]}
-                />
-              </td>
-              <td>
-                <img
-                  onClick={() => handleWhatsappCall(item["Phone Number"])}
-                  className="icons"
-                  width={"35px"}
-                  src={whatsappIcon}
-                  alt=""
-                />
-              </td>
-              <td>
-                <img
-                  onClick={() => handleTwilioCall(item["Phone Number"])}
-                  className="icons"
-                  width={"20px"}
-                  src={mobileIcon}
-                  alt=""
-                />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Number</th>
+                <th>Call</th>
+                <th>Whatsapp</th>
+                <th>Twilio</th>
+              </tr>
+            </thead>
+            <tbody>
+              {displayData?.map((item, index) => (
+                <tr key={index}>
+                  <td>{item["Name"]}</td>
+                  <td>{item["Address"]}</td>
+                  <td>{item["Phone Number"]}</td>
+                  <td>
+                    <img
+                      onClick={() => handlePhoneCall(item["Phone Number"])}
+                      className="icons"
+                      width={"20px"}
+                      src={phoneIcon}
+                      alt={item["Name"]}
+                    />
+                  </td>
+                  <td>
+                    <img
+                      onClick={() => handleWhatsappCall(item["Phone Number"])}
+                      className="icons"
+                      width={"35px"}
+                      src={whatsappIcon}
+                      alt=""
+                    />
+                  </td>
+                  <td>
+                    <img
+                      onClick={() => handleTwilioCall(item["Phone Number"])}
+                      className="icons"
+                      width={"20px"}
+                      src={mobileIcon}
+                      alt=""
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
-      <Pagination
-        handleNextPage={handleNextPage}
-        totalPages={totalPages}
-        handlePrevPage={handlePrevPage}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+          <Pagination
+            handleNextPage={handleNextPage}
+            totalPages={totalPages}
+            handlePrevPage={handlePrevPage}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        </>
+      )}
     </div>
   );
 }
