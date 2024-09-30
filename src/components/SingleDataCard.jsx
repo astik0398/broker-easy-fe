@@ -8,9 +8,9 @@ function SingleDataCard({data, handleWhatsappCall, handlePhoneCall ,handleTwilio
     const [animationClass, setAnimationClass] = useState('');
 
     const handlers = useSwipeable({
-      onSwipedLeft: () => {
+      onSwipedUp: () => {
           if (currentIndex < data.length - 1) {
-              setAnimationClass('swipe-left');
+              setAnimationClass('swipe-up');
               setTimeout(() => {
                   setCurrentIndex(prev => prev + 1);
                   setAnimationClass('');
@@ -19,9 +19,9 @@ function SingleDataCard({data, handleWhatsappCall, handlePhoneCall ,handleTwilio
               alert("You are already on the last card!");
           }
       },
-      onSwipedRight: () => {
+      onSwipedDown: () => {
           if (currentIndex > 0) {
-              setAnimationClass('swipe-right');
+              setAnimationClass('swipe-down');
               setTimeout(() => {
                   setCurrentIndex(prev => prev - 1);
                   setAnimationClass('');
