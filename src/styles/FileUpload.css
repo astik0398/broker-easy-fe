@@ -48,7 +48,7 @@
   
   .btn {
     text-decoration: none;
-    background-color: #005af0;
+    background-color: #3dd42f;
     color: #ffffff;
     padding: 10px 20px;
     border: none;
@@ -58,8 +58,6 @@
   
   .btn:hover{
     text-decoration: none;
-    background-color: #ffffff;
-    color: #005af0;
     padding: 10px 20px;
     border: none;
     outline: 1px solid #010101;

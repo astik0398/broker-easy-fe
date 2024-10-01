@@ -56,13 +56,13 @@ function DataTable({
     setCurrentPage((prev) => Math.max(prev - 1, 0));
   }
 
-  const filteredData = data.filter((item) =>
+  const filteredData = data?.filter((item) =>
     item["Address"].toLowerCase().includes(filter.toLowerCase())
   );
 
-  const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+  const totalPages = Math.ceil(filteredData?.length / rowsPerPage);
 
-  const displayData = filteredData.slice(
+  const displayData = filteredData?.slice(
     currentPage * rowsPerPage,
     (currentPage + 1) * rowsPerPage
   );

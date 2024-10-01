@@ -1,0 +1,64 @@
+.modal {
+    display: flex;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 25px;
+    border: 1px solid #888;
+    width: 50%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .input-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .header-input {
+    width: 45%; /* Adjust width as necessary */
+    padding: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  .close {
+    color: #000000;
+    font-size: 28px;
+    font-weight: bold;
+    width: 40px;
+    margin-left: auto;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: red;
+    cursor: pointer;
+  }
+
+  .cleanup-btn{
+    text-decoration: none;
+    background-color: red;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  
+  .cleanup-btn:hover{
+    border: 1px solid black;
+  }
