@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import "../styles/CleanUpFile.css";
 import * as XLSX from 'xlsx';
+import { useNavigate } from 'react-router-dom';
 
 function CleanUpFile() {
   const fileInputRef = useRef(null);
@@ -12,6 +13,7 @@ function CleanUpFile() {
     { name: '', value: 'Address',  placeholder: 'Enter header that has the list of Addresses' },
     { name: '', value: 'Phone Number',  placeholder: 'Enter header that has the list of Mobile Numbers' },
   ]);
+  const navigate = useNavigate()
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -102,9 +104,13 @@ function CleanUpFile() {
     closeModal(); // Close modal after processing
   };
 
+  function handleProceedButton(){
+    navigate('/table')
+  }
+
   return (
     <div>
-      <div className="container">
+      <div style={{display:'flex', flexDirection:'column', marginTop:'40px'}} className="container">
         <div className="card">
           <h3>Clean Your Data</h3>
           <div className="drop_box">
@@ -125,8 +131,15 @@ function CleanUpFile() {
             </button>
           </div>
         </div>
+        <button 
+          className='btn' 
+          onClick={handleProceedButton}
+          style={{marginTop:'50px'}}
+        >
+          Proceed to Upload the Cleanedup Data
+        </button>
       </div>
-
+      
       {isOpen && (
         <div className="modal" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
