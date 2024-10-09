@@ -15,17 +15,11 @@ function DataTable({
 }) {
   const isMobile = window.innerWidth <= 768;
 
-  // console.log(isMobile);
-
   const [currentPage, setCurrentPage] = useState(0);
   const [filter, setFilter] = useState("");
   const rowsPerPage = 10;
 
-  console.log("data inside table com", data);
-
   function handleWhatsappCall(phoneNumber) {
-    console.log(phoneNumber);
-    
     const whatsappUrl = `https://wa.me/${phoneNumber}`;
     window.open(whatsappUrl, "_blank");
   }
@@ -40,7 +34,6 @@ function DataTable({
       const response = await axios.post("http://localhost:7000/makecall", {
         to: phoneNumber,
       });
-
       alert(response.data);
     } catch (error) {
       console.error("Error:", error);
@@ -56,13 +49,19 @@ function DataTable({
     setCurrentPage((prev) => Math.max(prev - 1, 0));
   }
 
-  const filteredData = data?.filter((item) =>
-    item["Address"].toLowerCase().includes(filter.toLowerCase())
+  const filteredData = data?.filter((item) => {
+    const address = item["Address"];
+    return typeof address === 'string' && address.toLowerCase().includes(filter?.toLowerCase());
+  });
+  
+
+  const validData = filteredData?.filter(
+    (item) => item["Name"] && item["Address"] && item["Phone Number"]
   );
 
-  const totalPages = Math.ceil(filteredData?.length / rowsPerPage);
+  const totalPages = Math.ceil(validData?.length / rowsPerPage);
 
-  const displayData = filteredData?.slice(
+  const displayData = validData?.slice(
     currentPage * rowsPerPage,
     (currentPage + 1) * rowsPerPage
   );
@@ -80,7 +79,12 @@ function DataTable({
   return (
     <div className="table-container">
       {isMobile ? (
-          <SingleDataCard data={data} handleWhatsappCall={handleWhatsappCall} handlePhoneCall={handlePhoneCall} handleTwilioCall={handleTwilioCall}/>
+        <SingleDataCard
+          data={data}
+          handleWhatsappCall={handleWhatsappCall}
+          handlePhoneCall={handlePhoneCall}
+          handleTwilioCall={handleTwilioCall}
+        />
       ) : (
         <>
           <div
@@ -98,7 +102,6 @@ function DataTable({
               onChange={(e) => setFilter(e.target.value)}
               className="filter-input"
             />
-
             <input
               ref={fileInputRef}
               onChange={handleFileChange}
@@ -108,13 +111,13 @@ function DataTable({
               accept=".xlsx"
               id="fileID"
             />
-            <button
+            {/* <button
               onClick={handleUploadClick}
               style={{ height: "40px", borderRadius: "5px" }}
               className="btn-uploadNew"
             >
               Upload New
-            </button>
+            </button> */}
           </div>
 
           <table>
