@@ -52,7 +52,7 @@ function CleanUpFile() {
       const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
   
       if (jsonData.length > 0) {
-        const headers = jsonData[0];
+        const headers = jsonData[0].map(header => String(header).trim());
         setHeaders(headers);
   
         // Convert to an array of objects
@@ -65,6 +65,8 @@ function CleanUpFile() {
         });
   
         setData(jsonObjects);
+        console.log(jsonObjects);
+        
       }
   
       setIsOpen(true);
@@ -108,7 +110,8 @@ function CleanUpFile() {
     const headerMapping = {};
 
     inputs.forEach((input) => {
-      const headerIndex = headers.indexOf(input.name);
+      const trimmedName = input.name.trim();
+      const headerIndex = headers.indexOf(trimmedName);
       if (headerIndex !== -1) {
         headerMapping[input.name] = input.value;
         newHeaders[headerIndex] = input.value;
