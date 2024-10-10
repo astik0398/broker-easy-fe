@@ -191,7 +191,7 @@ function CleanUpFile() {
         </button> */}
 
 {uploadPercentage > 0 && (
-  <div style={{ width: '42%', background: '#e0e0e0', borderRadius: '5px', marginTop: '10px' }}>
+  <div className="upload-progress">
     <div
       style={{
         width: `${uploadPercentage}%`,

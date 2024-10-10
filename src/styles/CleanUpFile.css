@@ -21,6 +21,13 @@
     flex-direction: column;
     gap: 30px;
   }
+
+  .upload-progress{
+    width: 42%;
+    background: #e0e0e0;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
   
   .input-row {
     display: flex;
@@ -153,5 +160,20 @@
     transition: width 0.5s;
   }
   
-  
+  @media (max-width: 480px) {
+    .card{
+      width: 320px;
+    }
+
+    .modal-content{
+      width: 80%;
+      height: 280px;
+    }
+
+    .upload-progress{
+      width: 85%;
+      margin-top: 0px;
+    }
+    
+  }
   

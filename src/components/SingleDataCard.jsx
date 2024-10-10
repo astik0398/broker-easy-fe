@@ -43,9 +43,10 @@ function SingleDataCard({ data, handleWhatsappCall, handlePhoneCall, handleTwili
         };
     }, [currentPage, data]);
 
-    const filteredData = visibleData.filter(item =>
-        item.Address.toLowerCase().includes(filter.toLowerCase())
-    );
+    const filteredData = visibleData.filter(item => {
+      const hasRequiredFields = item.Name && item.Address && item['Phone Number'];
+      return hasRequiredFields && item.Address.toLowerCase().includes(filter.toLowerCase());
+  });
 
     return (
         <div className="data-table" ref={tableRef} style={{ overflowY: 'auto', maxHeight: '400px' }}>
