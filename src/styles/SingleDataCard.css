@@ -146,8 +146,15 @@ h2{
     opacity: .75;
 } */
 
-th, td{
+th{
     text-align: left;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+td{
+    text-align: left;
+    padding-top: 15px;
 }
 
 .details-div {

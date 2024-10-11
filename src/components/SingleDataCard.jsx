@@ -2,54 +2,33 @@ import React, { useState, useEffect, useRef } from 'react';
 import '../styles/SingleDataCard.css';
 import callIcon from '../assets/phoneIcon.svg';
 import whatsapp from '../assets/whatsappIcon.png';
+import Pagination from './Pagination';
 
 function SingleDataCard({ data, handleWhatsappCall, handlePhoneCall, handleTwilioCall }) {
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 10;
-    const [visibleData, setVisibleData] = useState([]);
     const [filter, setFilter] = useState('');
     const tableRef = useRef(null); 
 
-    useEffect(() => {
-        const loadMoreData = () => {
-            const nextItems = data.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
-            setVisibleData(prev => [...prev, ...nextItems]);
-        };
-
-        loadMoreData();
-    }, [currentPage, data]);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            if (tableRef.current) {
-                const { scrollTop, clientHeight, scrollHeight } = tableRef.current;
-                if (scrollTop + clientHeight >= scrollHeight - 5) {
-                    if ((currentPage + 1) * itemsPerPage < data.length) {
-                        setCurrentPage(prev => prev + 1);
-                    }
-                }
-            }
-        };
-
-        const tableElement = tableRef.current;
-        if (tableElement) {
-            tableElement.addEventListener('scroll', handleScroll);
-        }
-
-        return () => {
-            if (tableElement) {
-                tableElement.removeEventListener('scroll', handleScroll);
-            }
-        };
-    }, [currentPage, data]);
-
-    const filteredData = visibleData.filter(item => {
+    function handleNextPage() {
+        setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1));
+      }
+    
+      function handlePrevPage() {
+        setCurrentPage((prev) => Math.max(prev - 1, 0));
+      }
+     
+    const filteredData = data.filter(item => {
       const hasRequiredFields = item.Name && item.Address && item['Phone Number'];
       return hasRequiredFields && item.Address.toLowerCase().includes(filter.toLowerCase());
   });
 
+  const totalPages = Math.ceil(filteredData?.length / itemsPerPage);
+
+  const displayedData = filteredData.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+
     return (
-        <div className="data-table" ref={tableRef} style={{ overflowY: 'auto', maxHeight: '720px' }}>
+        <div className="data-table" ref={tableRef} >
             <input
                 type="text"
                 placeholder="Filter by address"
@@ -57,7 +36,7 @@ function SingleDataCard({ data, handleWhatsappCall, handlePhoneCall, handleTwili
                 onChange={(e) => setFilter(e.target.value)}
                 className="filter-input"
             />
-            <table style={{border:'1px solid red'}}>
+            <table>
                 <thead>
                     <tr>
                         <th>Details</th>
@@ -67,7 +46,7 @@ function SingleDataCard({ data, handleWhatsappCall, handlePhoneCall, handleTwili
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredData.map((item, index) => (
+                    {displayedData.map((item, index) => (
                         <tr key={index}>
                             <td><div className='details-div'>{item['Name']} <br /> {item['Address']}</div></td>
                             <td>{item['Phone Number']}</td>
@@ -81,6 +60,14 @@ function SingleDataCard({ data, handleWhatsappCall, handlePhoneCall, handleTwili
                     ))}
                 </tbody>
             </table>
+
+            <Pagination
+            currentPage={currentPage}
+            handleNextPage={handleNextPage}
+            handlePrevPage={handlePrevPage}
+            totalPages={totalPages}
+            showJumptoInput= {false}
+            />
         </div>
     );
 }

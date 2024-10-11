@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../styles/Pagination.css'
 
-function Pagination({currentPage, handleNextPage, totalPages, handlePrevPage, setCurrentPage}) {
+function Pagination({currentPage, handleNextPage, totalPages, handlePrevPage, setCurrentPage, showJumptoInput}) {
 
     const [jumpPage, setJumpPage] = useState('');
 
@@ -22,8 +22,8 @@ function Pagination({currentPage, handleNextPage, totalPages, handlePrevPage, se
             <button className="pagination-button" onClick={handleNextPage} disabled={currentPage === totalPages - 1}>NEXT</button>
            </div>
            <div>
-            <input type="number" placeholder='Jump to page' className="jumtopage-input" value={jumpPage} onChange={handleJumpToPage} 
-            />
+           {showJumptoInput ?  <input type="number" placeholder='Jump to page' className="jumtopage-input" value={jumpPage} onChange={handleJumpToPage} 
+            /> : null}
            </div>
         </div>
     );
