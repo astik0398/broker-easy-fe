@@ -1,4 +1,4 @@
-.single-card{
+/* .single-card{
     width: 80%;
     height: 500px;
     margin: auto;
@@ -30,24 +30,19 @@ h2{
     width: 100%;
 }
 
-/* Swipe Up Animation */
 .swipe-up {
-    transform: translateY(-100%); /* Move the card up */
+    transform: translateY(-100%)
 }
 
-/* Swipe Down Animation */
 .swipe-down {
-    transform: translateY(100%); /* Move the card down */
+    transform: translateY(100%);
 }
 
-/* Optional: Fade or Scale effects for Up and Down */
 .single-card.swipe-up h2,
 .single-card.swipe-down h2 {
-    opacity: 0; /* Fade out the text */
+    opacity: 0;
 }
 
-
-/* Optional: Fade or Scale effects */
 .single-card h2 {
     transition: opacity 0.3s ease;
 }
@@ -149,4 +144,15 @@ h2{
 #whatsapp-button:hover,
 #whatsapp-button:focus {
     opacity: .75;
+} */
+
+th, td{
+    text-align: left;
+}
+
+.details-div {
+    width: 145px;
+    overflow: hidden;        
+    white-space: nowrap;   
+    text-overflow: ellipsis;
 }

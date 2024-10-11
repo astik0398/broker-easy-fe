@@ -49,7 +49,7 @@ function SingleDataCard({ data, handleWhatsappCall, handlePhoneCall, handleTwili
   });
 
     return (
-        <div className="data-table" ref={tableRef} style={{ overflowY: 'auto', maxHeight: '400px' }}>
+        <div className="data-table" ref={tableRef} style={{ overflowY: 'auto', maxHeight: '720px' }}>
             <input
                 type="text"
                 placeholder="Filter by address"
@@ -57,24 +57,25 @@ function SingleDataCard({ data, handleWhatsappCall, handlePhoneCall, handleTwili
                 onChange={(e) => setFilter(e.target.value)}
                 className="filter-input"
             />
-            <table>
+            <table style={{border:'1px solid red'}}>
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Address</th>
+                        <th>Details</th>
                         <th>Phone Number</th>
-                        <th>Actions</th>
+                        <th>Call</th>
+                        <th>Whatsapp</th>
                     </tr>
                 </thead>
                 <tbody>
                     {filteredData.map((item, index) => (
                         <tr key={index}>
-                            <td>{item['Name']}</td>
-                            <td>{item['Address']}</td>
+                            <td><div className='details-div'>{item['Name']} <br /> {item['Address']}</div></td>
                             <td>{item['Phone Number']}</td>
-                            <td style={{ display: 'flex', gap: '25px' }}>
+                            <td style={{textAlign:'center'}}>
                                 <img width={'23px'} src={callIcon} onClick={() => handlePhoneCall(item['Phone Number'])} />
-                                <img width={'30px'} src={whatsapp} onClick={() => handleWhatsappCall(item['Phone Number'])} />
+                            </td>
+                            <td style={{textAlign:'center'}}>
+                            <img width={'30px'} src={whatsapp} onClick={() => handleWhatsappCall(item['Phone Number'])} />
                             </td>
                         </tr>
                     ))}
