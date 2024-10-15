@@ -49,7 +49,11 @@ function SingleDataCard({ data, handleWhatsappCall, handlePhoneCall, handleTwili
                     {displayedData.map((item, index) => (
                         <tr key={index}>
                             <td><div className='details-div'>{item['Name']} <br /> {item['Address']}</div></td>
-                            <td>{item['Phone Number']}</td>
+                            <td>
+                            {item['Phone Number'].split(',').map((number, idx) => (
+                    <div key={idx}>{number.trim()}</div>
+                ))}
+                            </td>
                             <td style={{textAlign:'center'}}>
                                 <img width={'23px'} src={callIcon} onClick={() => handlePhoneCall(item['Phone Number'])} />
                             </td>
