@@ -13,7 +13,7 @@ function DataTable({
   handleFileChange,
   fileInputRef,
 }) {
-  const isMobile = window.innerWidth <= 768;
+  // const isMobile = window.innerWidth <= 768;
 
   const [currentPage, setCurrentPage] = useState(0);
   const [filter, setFilter] = useState("");
@@ -70,22 +70,14 @@ function DataTable({
     setCurrentPage(0);
   }, [filter]);
 
-  const handleUploadClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
+  // const handleUploadClick = () => {
+  //   if (fileInputRef.current) {
+  //     fileInputRef.current.click();
+  //   }
+  // };
 
   return (
     <div className="table-container">
-      {isMobile ? (
-        <SingleDataCard
-          data={data}
-          handleWhatsappCall={handleWhatsappCall}
-          handlePhoneCall={handlePhoneCall}
-          handleTwilioCall={handleTwilioCall}
-        />
-      ) : (
         <>
           <div
             style={{
@@ -121,53 +113,64 @@ function DataTable({
           </div>
 
           <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Number</th>
-                <th>Call</th>
-                <th>Whatsapp</th>
-                <th>Twilio</th>
-              </tr>
-            </thead>
-            <tbody>
-              {displayData?.map((item, index) => (
-                <tr key={index}>
-                  <td>{item["Name"]}</td>
-                  <td>{item["Address"]}</td>
-                  <td>{item["Phone Number"]}</td>
-                  <td>
+    <thead>
+        <tr>
+            <th className="name-header">Name</th> {/* Name header for desktop */}
+            <th className="address-header">Address</th> {/* Address header for desktop */}
+            <th>Number</th>
+            <th>Call</th>
+            <th>Whatsapp</th>
+            <th className="twilio-column">Twilio</th>
+        </tr>
+    </thead>
+    <tbody>
+        {displayData?.map((item, index) => (
+            <tr key={index}>
+                <td className="details-cell">
+                    <div className="details-name">{item["Name"]}</div>
+                    <div className="details-address">{item["Address"]}</div> {/* Stacked on mobile */}
+                </td>
+                <td className="address-column">{item["Address"]}</td> {/* Separate column for desktop */}
+                <td>
+    {typeof item['Phone Number'] === 'string'
+        ? item['Phone Number'].split(',').map((number, idx) => (
+            <div key={idx}>{number.trim()}</div>
+        ))
+        : <div>{item['Phone Number']}</div>
+    }
+</td>
+                <td>
                     <img
-                      onClick={() => handlePhoneCall(item["Phone Number"])}
-                      className="icons"
-                      width={"20px"}
-                      src={phoneIcon}
-                      alt={item["Name"]}
+                        onClick={() => handlePhoneCall(item["Phone Number"])}
+                        className="icons"
+                        width={"20px"}
+                        src={phoneIcon}
+                        alt={item["Name"]}
                     />
-                  </td>
-                  <td>
+                </td>
+                <td>
                     <img
-                      onClick={() => handleWhatsappCall(item["Phone Number"])}
-                      className="icons"
-                      width={"35px"}
-                      src={whatsappIcon}
-                      alt=""
+                        onClick={() => handleWhatsappCall(item["Phone Number"])}
+                        className="icons"
+                        width={"35px"}
+                        src={whatsappIcon}
+                        alt=""
                     />
-                  </td>
-                  <td>
+                </td>
+                <td className="twilio-column">
                     <img
-                      onClick={() => handleTwilioCall(item["Phone Number"])}
-                      className="icons"
-                      width={"20px"}
-                      src={mobileIcon}
-                      alt=""
+                        onClick={() => handleTwilioCall(item["Phone Number"])}
+                        className="icons"
+                        width={"20px"}
+                        src={mobileIcon}
+                        alt=""
                     />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                </td>
+            </tr>
+        ))}
+    </tbody>
+</table>
+
 
           <Pagination
             handleNextPage={handleNextPage}
@@ -177,7 +180,7 @@ function DataTable({
             setCurrentPage={setCurrentPage}
           />
         </>
-      )}
+      
     </div>
   );
 }

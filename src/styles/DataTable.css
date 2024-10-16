@@ -66,18 +66,10 @@ tr:hover {
 
 /* Code for responsiveness goes here */
 
-@media (max-width: 768px) {
+@media (max-width: 426px) {
     .table-container {
         width: 95%; 
     }
-
-    th, td {
-        padding: 8px; 
-    }
-
-    /* .filter-input {
-        max-width: 40%; 
-    } */
 
     .btn-uploadNew{
         padding: 5px 5px;
@@ -92,14 +84,25 @@ tr:hover {
     th, td {
         white-space: nowrap;
     }
-}
 
-@media (max-width: 480px) {
-    th, td {
-        font-size: 14px;
+    .address-header,
+    .address-column,.twilio-column {
+        display: none;
     }
 
-    .filter-input {
-        padding: 8px;
+    .details-address, .details-name{
+        width: 150px;
+        overflow: hidden;        
+    white-space: nowrap;   
+    text-overflow: ellipsis;
+    }
+
+    .details-name {
+        font-weight: bold;
+    }
+
+    th.name-header {
+        content: "Details";
     }
 }
+
