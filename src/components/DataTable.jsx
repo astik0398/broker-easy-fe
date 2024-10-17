@@ -6,6 +6,7 @@ import Pagination from "./Pagination";
 import axios from "axios";
 import whatsappIcon from "../assets/whatsappIcon.png";
 import SingleDataCard from "./SingleDataCard";
+import SingleUserModal from "./SingleUserModal";
 
 function DataTable({
   data,
@@ -17,6 +18,8 @@ function DataTable({
 
   const [currentPage, setCurrentPage] = useState(0);
   const [filter, setFilter] = useState("");
+  const [isModelOpen, setIsModalOpen] = useState(false)
+  const [singleUserDetail, setSingleUserDetail] = useState({})
   const rowsPerPage = 10;
 
   function handleWhatsappCall(phoneNumber) {
@@ -76,6 +79,15 @@ function DataTable({
   //   }
   // };
 
+  function handleOpenModal(item){
+    setIsModalOpen(true)
+    setSingleUserDetail(item)
+  }
+
+  function handleCloseModal(){
+    setIsModalOpen(false)
+  }
+
   return (
     <div className="table-container">
         <>
@@ -126,7 +138,7 @@ function DataTable({
     <tbody>
         {displayData?.map((item, index) => (
             <tr key={index}>
-                <td className="details-cell">
+                <td onClick={()=> handleOpenModal(item)} className="details-cell">
                     <div className="details-name">{item["Name"]}</div>
                     <div className="details-address">{item["Address"]}</div> {/* Stacked on mobile */}
                 </td>
@@ -181,6 +193,7 @@ function DataTable({
           />
         </>
       
+      {isModelOpen && <SingleUserModal handlePhoneCall={handlePhoneCall} handleWhatsappCall={handleWhatsappCall} singleUserDetail={singleUserDetail} handleCloseModal={handleCloseModal}/>}
     </div>
   );
 }

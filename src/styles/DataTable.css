@@ -64,6 +64,10 @@ tr:hover {
     cursor: pointer;
   }
 
+  .details-address{
+    display: none;
+}
+
 /* Code for responsiveness goes here */
 
 @media (max-width: 426px) {
@@ -91,6 +95,7 @@ tr:hover {
     }
 
     .details-address, .details-name{
+        display: block;
         width: 150px;
         overflow: hidden;        
     white-space: nowrap;   
