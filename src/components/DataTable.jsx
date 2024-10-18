@@ -132,7 +132,7 @@ function DataTable({
             <th>Number</th>
             <th>Call</th>
             <th>Whatsapp</th>
-            <th className="twilio-column">Twilio</th>
+            {/* <th className="twilio-column">Twilio</th> */}
         </tr>
     </thead>
     <tbody>
@@ -169,7 +169,7 @@ function DataTable({
                         alt=""
                     />
                 </td>
-                <td className="twilio-column">
+                {/* <td className="twilio-column">
                     <img
                         onClick={() => handleTwilioCall(item["Phone Number"])}
                         className="icons"
@@ -177,7 +177,7 @@ function DataTable({
                         src={mobileIcon}
                         alt=""
                     />
-                </td>
+                </td> */}
             </tr>
         ))}
     </tbody>
